@@ -11,13 +11,16 @@
 ### TCP HandShake
 ---
 #### TCP 에서 연결 설정(connection establishment)은 `3-way handshake`를 통해 이루어진다
-- 데이터의 정확한 전송을 보장하기 위해 상대방 컴퓨터와 사전에 세션을 수립하는 과정을 의미한다
+- 데이터의 정확한 전송을 보장하기 위해 상대방 컴퓨터와 사전에 세션(=연결)을 수립하는 과정을 의미한다
 - 양쪽 모두 데이터 전송 준비가 완료되었음을 보장한다
 - 총 3 단계로 이루어진다
   - connection setup (3-way handshake)
   - data transfer
   - connection termination (4-way-handshake)
 - TCP 통신은 `양방향성 연결`이기 때문에 클라이언트의 요청, 서버의 허가, 클라이언트의 응답 과정까지 총 3번의 handshaking 과정이 필요하다
+###### *3-way handshake는 가상의 연결 통로를 설정하는 것 뿐, 실제 데이터를 주고 받지는 않는다
+###### *각 호스트는 독립적으로 자신의 cwnd를 관리하고, 데이터를 전송하는 과정에서 혼잡 제어 알고리즘을 통해 조절한다
+
 <br>
 
 #### [1 단계] 3-way handshake를 통해 동기화를 진행한다
@@ -192,3 +195,17 @@
 > - 검사합(Check Sum): 세그먼트내에 있는 검사합 필드를 통해 패킷이 훼손되었는지 확인한다.
 > - 확인응답(Acknowledgement): 세그먼트의 수신을 알려주기 위해 확인 응답을 사용한다.
 > - 타임아웃(Time-out): 송신 TCP는 연결당 재전송 타임아웃(RTO, retransmission time-out) 타이머를 사용하여 패킷의 재전송 시기 결정
+
+#### [Go Back N]
+<img width="400" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/97e67b6f-5113-46ec-bea8-88ffc78562b9">
+
+- cumulative ACK를 사용하여 윈도우를 관리하는 방식이다
+- 정상적으로 전송된 가장 마지막 패킷에 대한 ACK를 다음 패킷을 받을 때마다 계속 전송한다
+- 유실되거나 잘못된 패킷 이후 수신되는 모든 패킷을 버린다
+
+<img width="400" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/b372de36-360a-4b1f-89d6-8ff001319236">
+
+1. 설정된 window size = 4, [0 1 2 3] 4개의 패킷을 차례로 전송한다
+2. [0 1]에 대한 ACK를 확인한 후 다음 데이터인 [4 5]를 전송한다 (window = [2 3 4 5])
+3. 2번 패킷에 대한 time out이 발생한다
+4. [4 5]에 대한 ACK가 모두 버려지고, 2번 패킷부터 다시 재전송한다 ([2 3 4 5] 데이터 전송 시작)
