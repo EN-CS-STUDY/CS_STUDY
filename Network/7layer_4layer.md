@@ -87,6 +87,9 @@
 
 ## TCP/IP 4계층과의 비교
 
+### 두 계층 모델간 개발 시기가 다르고 OSI 모델은 장비개발과 통신 자체에 대한 표준을 정의하고, TCP/IP 프로토콜을 사용한다. 
+### OSI  모델이 표준과 학습도구로써의 의의가 있다면 TCP/IP 모델은 실무적인 통신 기술을 구현하는데 의미를 가진다.
+
 <img src="https://github.com/devSquad-study/2023-CS-Study/raw/main/Network/img/network_osi_7_layer_02.png"/>
 <br/>
 출처 : <a href = "https://github.com/devSquad-study/2023-CS-Study/blob/main/Network/network_osi_7_layer.md">Ready-For-Tech-Interview Readme</a>
