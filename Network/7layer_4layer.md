@@ -2,10 +2,10 @@
 
 ## OSI(Open Systems Interconnection) 7계층
 
-<img src = "https://private-user-images.githubusercontent.com/48996701/339950830-be76c356-1fd8-4ca6-91b8-1d78b70891ef.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTg0MjMxNzYsIm5iZiI6MTcxODQyMjg3NiwicGF0aCI6Ii80ODk5NjcwMS8zMzk5NTA4MzAtYmU3NmMzNTYtMWZkOC00Y2E2LTkxYjgtMWQ3OGI3MDg5MWVmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA2MTUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNjE1VDAzNDExNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWNlODBhNjEzZjBiMDNhMGY4YWI4Y2U4ZDRhZWE3NjNiMjFjODZlODIwYTNjOTU1MDk5OGExODk2ODQ5NzRlMmImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.eHif-bEKSwoSJ10EsalL9MekybVe34ZSxtZWDxl8dq8"/>
+<img src = "https://github.com/EN-CS-STUDY/CS_STUDY/assets/48996701/74588915-18aa-4865-8b89-e62395bdc058"/>
 
 ### OSI 7계층을 나누는 이유
-- OSI 7계층은 네트워크 통신을 7단계로 나눈 것이다.
+- 통신이 일어나는 과정을 단계별로 알 수 있고, 특정한 곳에 이상이 생기면 그 단계만 수정할 수 있기 때문이다.
 
 <br/>
 
@@ -19,7 +19,6 @@
    - 물리 계층에서 송수신되는 데이터의 오류와 흐름을 관리하는 계층
    - Mac 주소를 통해 통신한다. 프레임에 Mac 주소를 부여하고 에러검출, 재전송, 흐름제어를 진행한다.
    - 예시 : 브릿지, 스위치
-
 <br/>
 
 3. 네트워크 계층(Network Layer)
