@@ -84,12 +84,13 @@
   - 데이터 손실 시 재전송 해야할 데이터가 많을 수 있다
 <br>
 
-#### 2. 혼잡 제어 (Congestion Control )
+#### 2. 혼잡 제어 (Congestion Control)
 - `네트워크 혼잡에 대처한다`
 - 혼잡 == 네트워크 내에 패킷의 수가 과도하게 증가하는 현상
 - 처리 속도보다 많은 양의 데이터를 너무 빠르게 전송하여 발생하는 네트워크 혼잡 현상
 - 한 라우터에 데이터가 몰릴 경우 데이터를 모두 처리할 수 없게 되고 오버플로우로 데이터 손실이 발생할 수 있기 때문에 `데이터 전송 속도를 강제로 줄임` (송신측 제어)
 
+#### 1) 혼잡 회피 방식(Congestion Avoidance)
 #### [AIMD(Additive Increase / Multiplicative Decrease)]
 #### 합 증가 - 곱 감소 알고리즘: 더해 나갈때는 증가시키고, 반으로 줄여 감소시킨다
 <img width="300" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/58029ca9-4727-4603-8749-24a70ea030f3"/>
@@ -109,11 +110,13 @@
   - 혼잡상황을 미리 감지하지 못해 혼잡이 발생한 후에야 대역폭을 조절한다 (대응 시간↑)
  
 #### [Slow Start]
-#### 혼잡 회피 상태가 될 때 까지 cwnd 증가 방식을 지수 증가 방식으로 한다
-###### *cwnd(congestion window): 현재 네트워크에서 안정적으로 전송될 수 있는 데이터의 양
-###### *RTO(Retransmission Timeout): 재전송 타임아웃, 데이터 세그먼트가 송신되고 확인 응답을 받기까지 기다리는 시간
+#### 초기 데이터 전송에서 `네트워크의 대역폭을 탐색`하고 `최대 전송 속도`를 결정하는 알고리즘
 <img width="300" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/648820d9-bbb9-4fdb-96d0-b5a21ff7e30b"/>
 
+###### *cwnd(congestion window): 현재 네트워크에서 안정적으로 전송될 수 있는 데이터의 양
+###### *RTO(Retransmission Timeout): 재전송 타임아웃, 데이터 세그먼트가 송신되고 확인 응답을 받기까지 기다리는 시간
+
+- 혼잡 회피 상태가 될 때 까지 cwnd 증가 방식을 지수 증가 방식으로 한다
 - 시작부터 빠르게 윈도우를 증가 시키고 특정 시기가 오면 윈도우를 확 줄인다
 - 이름과 다르게 `지수 형태로 빠르게 증가`한다
 - 제약 없이 처음부터 최대로 전송하는 UDP보다 상대적으로 느리게 경로를 확인하며 전송 속도를 높인다
@@ -138,6 +141,46 @@
 - 장점
   - 설정한 time out이 지나지 않아도 `3번의 중복된 ACK패킷을 받게되면 해당 패킷을 바로 재전송` 할 수 있다 (`빠른 재전송`)
   - `패킷의 순서를 유지`해 보다 신뢰성있는 데이터 송수신을 할 수 있다
+<br>
+
+#### 2) 혼잡 제어 정책
+> ###### - TCP 회피 방식들을 활용
+> ###### - AIMD, Slow Start를 적절히 섞어 사용하되 네트워크 혼잡 발생시 대처 방식에 따라 나뉨
+
+#### Tahoe vs Reno
+<img width="300" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/529095e0-a253-4414-8760-a68163f49844">
+
+#### [Tahoe]
+<img width="300" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/3ebca775-fcd3-46cf-829e-6bb9e3ef74aa">
+
+> 1. TCP connection
+> 2. cwnd = 1에서 시작 (네트워크 혼잡 상황 조사)
+> 3. 이후 지수형태로 증가 (대역폭 활용)
+> 4. loss 발생
+>    - ssthresh = cwnd / 2로 설정
+>    - `cwnd = 1`에서 다시 시작 (`slow start`)
+> 6. cwnd가 지수형태로 증가하다가 `ssthresh값에 다시 도달하게 되면 1씩 증가`
+
+- algorithm: slow start, congestion avoidance
+- fast retransmit, 즉 time out 전에라도 3개의 중복된 ACK를 받으면 위의 혼잡 제어 방식 적용
+*time out: 패킷 응답이 없음
+*fast retransmit: time out 전 `3 duplicated ACK`, 패킷 전송은 문제가 없음
+
+#### [Reno]
+<img width="300" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/0626d5ae-5335-4117-894b-17cf9b5681d8">
+
+> 1. TCP 연결
+> 2. cwnd = 1에서 시작 (이후 지수형태로 증가)
+> 3. loss 발생
+>    - time out의 경우
+>      - Tahoe와 동일한 방식으로 동작
+>    - fast retransmit의 경우
+>      - ssthresh = cwnd / 2
+>      - `cwnd /= 2`에서 다시 시작 -> `fast recovery`<br>
+>        (: time out처럼 심각한 상황이 아니라고 판단)
+> 4. 새로운 ACK가 도달할때까지 기다림
+>    - 새로운 ACK가 도달하면 congestion avoidance 실행
+>    - cwnd가 1씩 증가
 <br>
 
 #### 3. 오류 제어
