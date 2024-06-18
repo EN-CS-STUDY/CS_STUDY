@@ -2,7 +2,7 @@
 
 ## OSI(Open Systems Interconnection) 7계층
 
-<img src = "https://github.com/EN-CS-STUDY/CS_STUDY/assets/48996701/74588915-18aa-4865-8b89-e62395bdc058"/>
+<img src = "https://github.com/EN-CS-STUDY/CS_STUDY/assets/48996701/74588915-18aa-4865-8b89-e62395bdc058" alt="7layer"/>
 
 ### OSI 7계층을 나누는 이유
 - 통신이 일어나는 과정을 단계별로 알 수 있고, 특정한 곳에 이상이 생기면 그 단계만 수정할 수 있기 때문이다.
