@@ -10,6 +10,9 @@
 - 데이터를 한 방향으로만 쌓을 수 있으며 삽입/삭제/조회 등의 연산은 최상층에서만 가능하다.
 - 시간복잡도는 제일 말단에서 연산이 이루어지므로 당연히 O(1)이다.
 
+<br/>
+
+
 ## 스택을 구성하는 주요 함수
 - push() : 스택에 데이터를 삽입하는 함수
   - 스택이 가득 차있으면 Overflow가 발생한다.
@@ -22,6 +25,15 @@
 - peek() : 스택에서 데이터를 조회하는 함수
 
 
+<br/>
+
+
+<br/>
+
+
+<br/>
+
+
 # Queue 
 
 <img src = "https://github.com/EN-CS-STUDY/CS_STUDY/assets/48996701/ca4a4309-ef31-45fb-a6c9-2d03daa98d9a" alt = "queue"/>
@@ -32,6 +44,9 @@
 - 큐는 데이터를 한 방향으로만 삽입하고 다른 방향으로만 삭제할 수 있는 자료구조이다.
 - Front(앞)에서 데이터의 조회/삭제가 이루어지고 Rear(뒤)에서 삽입 연산을 수행한다.
 - 시간복잡도는 제일 말단에서 연산이 이루어지므로 당연히 O(1)이다.
+
+<br/>
+
 
 ## 큐를 구성하는 주요 함수
 - enqueue() : 큐에 데이터를 삽입하는 함수
@@ -46,23 +61,24 @@
   - 큐가 비어있는지 유무에 관해 boolean 값을 반환한다.
 - peek() : 큐에서 데이터를 조회하는 함수
 
+<br/>
+
+
 ## 스택 2개로 큐를 구현하는 방법
 <img src = "https://github.com/EN-CS-STUDY/CS_STUDY/assets/48996701/d2507a78-6107-4013-a7de-7ceca7ca187f" alt = "stack_to_queue"/>
 
-구현 순서
+### 1. inBox 에 데이터를 push(삽입)한다. - A,B
+### 2. inBox 에 있는 데이터를 pop(추출) 하여 outBox 에 push(삽입) 한다. - B,A
+### 3. outBox 에 있는 데이터를 pop(추출) 한다. - A,B 순으로 출력됨
 
-1. inBox 에 데이터를 push(삽입)한다. - A,B
-2. inBox 에 있는 데이터를 pop(추출) 하여 outBox 에 push(삽입) 한다. - B,A
-3. outBox 에 있는 데이터를 pop(추출) 한다. - A,B 순으로 출력됨
-
-즉, inBox에 삽입한 데이터를 pop으로 빼고 그 데이터를 outBox에 push해서 만들어진 스택을 pop하면 큐가 구현된다.
+### 즉, inBox에 삽입한 데이터를 pop으로 빼고 그 데이터를 outBox에 push해서 만들어진 스택을 pop하면 큐가 구현된다.
 
 참고자료: https://creatordev.tistory.com/83
 
+<br/>
 
 ## 큐 2개로 스택을 구현하는 방법
 
-구현 순서
 ### 1. 메인큐에 값을 넣는다.(put) ex) 1→ 2→ 3 → 4
 <img src = "https://github.com/EN-CS-STUDY/CS_STUDY/assets/48996701/c9db23ec-05b7-4ba5-8a9e-c371bf641db1" alt = "queue_to_stack1"/>
 
@@ -73,12 +89,10 @@
 
 <br/>
 
-
 ### 3. 마지막 남은 원소는 result 변수에 저장한다.
 <img src = "https://github.com/EN-CS-STUDY/CS_STUDY/assets/48996701/f1cd3714-0d36-4af6-b7f3-ab847f764d36" alt = "queue_to_stack3"/>
 
 <br/>
-
 
 ### 4. 임시 큐에 있는 원소들을 메인 큐로 모두 이동시킨다. (get → put)
 <img src = "https://github.com/EN-CS-STUDY/CS_STUDY/assets/48996701/57228080-03a6-4ac8-9aa8-a2551e45846d" alt = "queue_to_stack4"/>
