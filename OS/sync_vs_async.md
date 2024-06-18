@@ -89,7 +89,7 @@ do{
 - 문제
   - P1이 커널모드에서 작업(count값을 읽고 증가)하는 도중 contex switch가 발생하면, P2에서 같은 데이터를 조작하게 되면 P2의 작업은 반영되지 않는다
 - 해결
-  - 프로세스가 커널모드에서 작업하는 경우 CPU 제어권을 뺏기지 않도록 한다
+  - 프로세스가 커널모드에서 작업하는 경우 time out이 되더라도 `CPU 제어권을 다른 프로세스에게 뺏기지 않도록 한다`
 
 ##### 3. 멀티 프로세서에서 공유 메모리 내의 커널 데이터에 접근할 때
 <img width="400" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/07c3cc11-dc43-41c0-9532-7c1035a2e317">
@@ -106,12 +106,14 @@ do{
 <br>
 
 #### [해결 방법]
-1. Mutual exclusion
+###### 1. Mutual exclusion
 > process가 critical section에서 실행중인 경우 다른 process의 접근을 막는다
 
-2. Deadlock
-> 
+###### 2. 
 
+
+
+2. Deadlock
 3. Starvation
 
 
