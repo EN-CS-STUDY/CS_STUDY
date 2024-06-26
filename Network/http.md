@@ -13,6 +13,7 @@
 
 - client: 서버에게 요청을 보내는 리소스 사용자
 - server: 클라이언트의 요청에 대한 응답을 제공하는 리소스 관리자
+<br>
 
 ### Q. HTTP의 보안 취약점 
 #### 1. 도청이 가능하다
@@ -42,24 +43,64 @@
 ###### *완전성: 정보의 정확성 (서버 또는 클라이언트에서 수신한 내용이 송신측이 보낸 내용과 일치한다)
 
 #### :loudspeaker: HTTP에는 암호화 구조가 없지만 SSL or TLS 프로토콜을 조합하여 통신 내용을 암호화할 수 있다
+<br>
 
+### Q. HTTP 보안을 위한 필요조건
+1. 데이터를 클라이언트와 서버끼리만 확인할 수 있도록 데이터를 암호화한다
+2. 서버의 신분을 확인할 수 있는 인증 과정을 거쳐야 한다
+#### :loudspeaker: 위의 조건을 만족시키는 프로토콜이 바로 `HTTPS`
 <br>
 
 # HTTPS
 > - HyperText Transfer Protocol Secure
 > - 인터넷 상에서 정보를 암호화하는 SSL프로토콜을 사용해 클라이언트와 서버가 자원을 주고 받을 때 쓰는 통신 규약
 > - **HTTP의 보안 취약점을 해결하기 위한 프로토콜 (HTTP + SSL)**
-> - SSL 암호화 방식을 이용해 보안 취약점을 해결한다
+<br>
 
 ### Q. HTTPS는 새로운 프로토콜인가?
 > - HTTP 통신 소켓을 SSL or TLS 프로토콜로 대체하는 것 뿐이다
-> - HTTP는 TCP와 직접 통신했지만, HTTPS에서는 HTTP가 SSL과 통신하고 SSL이 TCP와 통신한다
+> - HTTP는 TCP와 직접 통신했지만, HTTPS에서는 HTTP가 SSL과 통신하고 SSL이 TCP와 통신한다<br>
+>   (layer를 하나 더 둔 것)
 > - HTTP와 TCP는 다른 계층에서 동작하는 프로토콜로 HTTP는 TCP를 이용해 데이터를 전송하고, TCP는 데이터의 신뢰성과 정확성을 보장하는 관계다
 ###### * TCP - transfort layer / HTTP - application layer
 <br>
 
-#### Q. SSL과 TLS Protocol
+### Q. HTTPS 통신 흐름
+<img width="500" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/6ba0b1de-e76a-456c-bad6-715afa098985">
 
+
+1. 애플리케이션 서버(A)를 만드는 기업은 HTTPS적용을 위해 **공개키와 개인키를 만든다**
+2. 신뢰할 수 있는 CA기업을 선택하고, 공개키 관리를 부탁하며 계약한다
+3. 계약이 완료된 CA기업은 CA기업만의 공개키와 개인키가 있다
+4. 인증서(CA기업명, 서버(A)의 공개키, 공개키 암호화 방법)를 만들고 CA기업의 개인키로 암호화해서 서버(A)에 제공한다
+5. 서버(A)는 암호화된 인증서를 갖는다. 이제 서버(A)는 서버의 공개키로 암호화된 HTTPS요청이 아닌 다른 요청이 오게 되면 암호화된 인증서를 클라이언트에게 건네준다
+6. 
+7. 클라이언트가 main.html파일을 요청했을 때, HTTPS 요청이 아니기 때문에 CA기업이 서버(A)의 정보를 CA기업의 개인키로 암호화한 인증서를 받게 된다
+8. 브라우저는 해독한 뒤 서버(A)의 공개키를 얻는다
+9. 클라이언트가 서버(A)와 handshaking 과정에서 주고받은 난수를 조합해 pre-master-secret-key를 생송헌 후 서버(A)의 공개키로 대칭키를 암호화해 서버로 보낸다
+
+### Q. SSL과 TLS Protocol
+
+#### [SSL]
+- Secure Socket Layer, 암호화 기반 인터넷 보안 프로토콜
+- 대칭키 암호화, 공개키 암호화 방식을 모두 사용한다
+- CA(Certificate Authority)라고 불리는 서드 파티로부터 서버와 클라이언트의 인증에 사용된다
+- handshake를 통해 인증이 이루어지며 데이터에 디지털 서명을 통해 의도적으로 조작 여부를 확인한다
+<br>
+
+#### [TLS]
+- Transport Layer Security
+- TLS는 SSL의 업데이트 버전이다 (명칭만 다르다고 볼 수 있음)
+※
+<br>
+
+#### Q. SSL과 TLS의 차이점은 무엇인가?
+- 메세지 암호화
+  - SSL은 MAC을 사용해 변조를 방지한다
+  - TLS는 암호화와 같은 다른 수단을 사용해 변조를 방지한다
+- 현대의 HTTPS는 TLS를 기반으로 한 기술이다
+  - SSL과 TLS는 사실상 동일한 원리로 동작한다
+  - SSL은 1996년 3.0ver 이후 업데이트되지 않아 사라질 것으로 여겨지며 TLS를 권장하고 있다
 
 ### Q. HTTP vs HTTPS
 <img width="400" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/5167ffd2-c364-4b26-8349-2393615b2182">
