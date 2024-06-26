@@ -73,7 +73,7 @@ Key란? 검색이나 정렬 시 Tuple을 구분할 수 있는 기준이 되는 A
 ## 요약
 
 - **기본 키 (Primary Key)**: 각 행을 고유하게 식별합니다. 예: `Users.user_id`, `Orders.order_id`
-- **후보 키 (Candidate Key)**: 기본 키로 선택될 수 있는 유일한 값의 속성 집합입니다. 예: `Users.email`, `Users.username`
+- **후보 키 (Candidate Key)**: 기본 키로 선택될 수 있는 유일한 값의 속성 집합입니다. 예: `Users.user_id`, `Users.email`, `Users.username`
 - **대체 키 (Alternate Key)**: 기본 키를 제외한 후보 키입니다. 예: `Users.email`, `Users.username`
 - **외래 키 (Foreign Key)**: 다른 테이블의 기본 키를 참조하여 테이블 간의 관계를 정의합니다. 예: `Orders.customer_id`가 `Users.user_id`를 참조
 - **슈퍼 키 (Super Key)**: 행을 고유하게 식별할 수 있는 하나 이상의 열의 집합입니다. 예: `Users.user_id`, `Users.email`, `Users.username`
