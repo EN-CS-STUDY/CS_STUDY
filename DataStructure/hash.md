@@ -83,9 +83,13 @@ Note) 오버헤드 예시
 2. Tree 를 사용하는 방식 (Red-Black Tree) 
 기본적인 알고리즘은 Separate Chaining 방식과 동일하며 연결 리스트 대신 트리를 사용하는 방식이다. 
 연결 리스트를 사용할 것인가와 트리를 사용할 것인가에 대한 기준은 하나의 해시 버킷에 할당된 key-value 쌍의 개수이다. 
-데이터의 개수가 적다면 링크드 리스트를 사용하는 것이 맞다. 트리는 기본적으로 메모리 사용량이 많기 때문이다. 
-데이터 개수가 적을 때 Worst Case 를 살펴보면 트리와 링크드 리스트의 성능 상 차이가 거의 없다. 
-따라서 메모리 측면을 봤을 때 데이터 개수가 적을 때는 링크드 리스트를 사용한다.
+데이터의 개수가 적다면 연결리스트를 사용하는 것이 맞다. 트리는 기본적으로 메모리 사용량이 많기 때문이다. 
+데이터 개수가 적을 때 Worst Case 를 살펴보면 트리와 연결리스트의 성능 상 차이가 거의 없다. 
+따라서 메모리 측면을 봤을 때 데이터 개수가 적을 때는 연결리스트를 사용한다.
+
+따라서 다음과 같은 기준을 적용한다.
+1. 데이터 개수가 적을 때는 연결리스트를 사용한다.
+2. 데이터 개수가 많을 때는 트리를 사용한다.
 ```
 
 
@@ -141,3 +145,8 @@ Note) 오버헤드 예시
   - HashSet은 데이터베이스나 파일 시스템 등에서 중복된 값을 제거하거나, 대용량 데이터 중에서 특정 값을 찾을 때 유용하게 사용될 수 있음
 
 
+참고자료
+- https://github.com/WooVictory/Ready-For-Tech-Interview/blob/master/Data%20Structure/%5BData%20Structure%5D%20Hash(%ED%95%B4%EC%8B%9C).md
+- https://github.com/gyoogle/tech-interview-for-developer/blob/master/Computer%20Science/Data%20Structure/Hash.md
+- https://github.com/JaeYeopHan/Interview_Question_for_Beginner/tree/main/DataStructure#hash-table
+- https://github.com/devSquad-study/2023-CS-Study/blob/main/Algorithm/algorithm_hash.md
