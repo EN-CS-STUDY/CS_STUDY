@@ -46,7 +46,7 @@ Critical Section은 (임계구역 또는 공유변수 영역) 병렬프로그래
 - 다중 프로세스들의 공유 리소스에 대한 접근을 조율하기 위해 동기화(Synchronization) 또는 락(Lock)을 사용한다.
 - 즉,  뮤텍스 객체를 두 스레드가 동시에 사용할 수 없다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/8eddc1b4-ba06-4c44-972a-b0fb222690b2/3e781bd2-906d-4000-92e2-7d3beff94efb/Untitled.png)
+![image](https://github.com/EN-CS-STUDY/CS_STUDY/assets/77156858/5a5b6869-b25a-4d9d-89dd-404839b41291)
 
 ## 📚 세마포어(Semaphore)
 
@@ -69,7 +69,7 @@ Critical Section은 (임계구역 또는 공유변수 영역) 병렬프로그래
 - 세마포어를 사용하는 프로세스는 그 값을 확인하고, 자원을 사용하는 동안에는 그 값을 변경함으로써 다른 세마포어 사용자들이 대기하도록 해야 한다.
 - 세마포어는 이진수를 사용하거나 추가적인 값을 가질 수 있다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/8eddc1b4-ba06-4c44-972a-b0fb222690b2/29b5185f-a386-4d80-95ee-f682fe48e6cd/Untitled.png)
+![inage](https://github.com/EN-CS-STUDY/CS_STUDY/assets/77156858/c3beb776-bec8-4d52-b44e-71cc3202eaee)
 
 ## 🤔 뮤텍스와 세마포어의 차이점?
 
