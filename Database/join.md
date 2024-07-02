@@ -11,7 +11,7 @@
 > 데이터베이스에서 테이블을 분리하여 **데이터의 중복을 최소화**하고 **데이터의 일관성을 유지**하기 위함이다. 이를 통해 데이터를 효율적으로 검색하고 처리할 수 있다.
 <br>
 
-### Q. JOIN의 4가지 유형
+### Q. JOIN의 6가지 유형
 ##### [Student]
 <img width="500" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/d6fe5c6a-d684-4634-a2f0-68c28c205af6">
 
@@ -35,12 +35,13 @@ ON Student.ROLL_NO = StudentCourse.ROLL_NO;
 - 두 테이블에 모두 **지정한 열의 데이터**가 있어야 한다
 
 ##### [INNER JOIN에서 ON절 대신 WHERE절을 사용한다면?]
-`ON` : join 전에 조건을 필터링한다
+`ON` : join 전에 조건을 필터링한다<br>
 `WHERE` : join 후에 조건을 필터링한다
 
 - INNER JOIN에서 on과 where은 같은 결과와 같은 퍼포먼스가 나온다
 - 하지만 가독성과 OUTER JOIN으로의 수정이 용이하기 때문에 ON을 쓰는게 좋다
 - 조건을 지정하지 않는 INNER JOIN은 CROSS JOIN처럼 동작한다
+
 <br>
 
 ### 2. LEFT JOIN
@@ -59,6 +60,25 @@ ON StudentCourse.ROLL_NO = Student.ROLL_NO;
 - LEFT (OUTER) JOIN
 - 왼쪽 테이블의 모든 행을 반환하고, 오른쪽에 있는 테이블의 행과 일치한다
 - 오른쪽 테이블과 일치하는 행이 없는 행은 null로 표기한다
+
+##### [OUTER JOIN에서 ON절과 WHERE절의 차이]
+```
+SELECT *
+FROM test1 a LEFT JOIN test2 b
+ON (a.aa = b.aa)
+WHERE b.cc = 7;
+```
+```
+SELECT *
+FROM test1 a LEFT JOIN test2 b
+ON (a.aa = b.aa AND b.cc = 7);
+```
+> **ON과 WHERE은 JOIN할 대상이 달라진다**
+- 첫번째 : a와 b 테이블의 outer join을 수행한 후, b.cc = 7인 데이터를 추출한다
+- 두번째 : a테이블과 b테이블(중 b.cc = 7인 경우)를 조인한 결과가 나온다
+
+*참고자료: https://blog.leocat.kr/notes/2017/07/28/sql-join-on-vs-where
+
 <br>
 
 ### 3. RIGHT JOIN
@@ -170,15 +190,28 @@ ON cust.spouse_id = spouse.customer_id
   - 어떤 데이터를 어떤 테이블에서 가져올지 모르기 때문이다
   - SQL 내부적으로는 서로 다른 테이블 2개를 조인하는 것으로 인식한다
 - inner, outer, cross 등 문제에 따라 다르게 수행할 수 있다
+
+<br>
+
+##### *inner join과 outer join
+> `inner join`<br>
+> - 조건에 부합하는 row만 결과 집합에 포함한다
+> - inner 조인은 어느 테이블을 먼저 읽어도 결과가 달라지지 않는다<br>
+> `outer join`<br>
+> 공통된 결과를 결과집합에 포함한다. driving table의 행 중 driven table 조건에 맞는 행이 없는 경우 null로 표시한다
 <br>
 
 ### Q. JOIN 수행 과정
 
 ### [Nested Loops Join]
+
 <img width="500" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/33674419-9d19-473c-a815-7e157085aa9d">
 
+*nested: 중첩된<br>
+*MySQL에서는 join시 NL조인을 사용한다<br>
+
 [과정]
-1. table A와 table B사 key를 기준으로 결합을 진행한다
+1. table A와 table B가 key를 기준으로 결합을 진행한다
 2. table A의 첫 번째 행에서 출발해 table B의 모든 행을 스캔한다. 이때 결합 조건이 맞다면 값을 리턴한다
 3. 첫 번째 행의 스캔이 끝나면 두 번째 행도 table B의 모든 행을 스캔한다
 4. 2~3번 과정을 반복하다 table A의 마지막 행이 table B의 모든 행을 스캔하면 종료한다
@@ -186,19 +219,28 @@ ON cust.spouse_id = spouse.customer_id
 [결과]
 > 중첩 for문과 원리가 같다. 레코드 수를 R(A), R(B)라고 할 때 **실행시간은 R(A) * R(B)에 비례한다.**
 
-[해결]
-> - 구동 테이블이 작아야 한다
-> - 내부 테이블의 결합키 필드에 인덱스가 존재한다
-<br>
+[최적화]
+
+<img width="500" alt="image" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/f05d6805-f43e-46ab-a40b-a3f8b4115f34">
+
+> **"구동(driving) 테이블이 작아야 한다"**<br>
+> : 구동 테이블에서 찾은 레코드 수 만큼 full scan이 수행된다<br>
+> **"내부 테이블의 결합키 필드에 인덱스가 존재한다"**<br>
+> : 검색시 full scan이 아니라 index파일을 검색한다
+
+*구동 테이블: 조인이 진행될 때 먼저 액세스되어 주도적으로 다른 테이블의 결합키에 다가가 매칭을 시도하는 테이블<br>
+*인덱스: table의 컬럼을 색인화(따로 파일로 저장)하여 검색속도를 향상시키기 위한 자료구조
+<br><br>
 
 ### Q. NoSQL에서의 JOIN
 `RDBMS`
 - 정해진 스키마에 따라 데이터를 저장한다
 - 관계를 나타내기 위해 외래키를 사용하여 join이 가능하다<br>
+
 `NoSQL`
 - 스키마 없이 key-value 형태로 관리한다
 - 테이블간 관계정의가 없기 때문에 join이 불가하다
 
-#### [NoSQL]
+#### *NoSQL JOIN
 - NoSQL에서는 `Reference` 방식을 통해 데이터간의 관계를 나타낸다
 - Reference는 특정 문서가 다른 문서를 참조하는 방식으로 데이터간의 관계를 나타낸다
