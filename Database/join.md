@@ -40,6 +40,69 @@ ON Student.ROLL_NO = StudentCourse.ROLL_NO;
 
 - INNER JOIN에서 on과 where은 같은 결과와 같은 퍼포먼스가 나온다
 - 하지만 가독성과 OUTER JOIN으로의 수정이 용이하기 때문에 ON을 쓰는게 좋다
+<br>
+
+### 2. LEFT JOIN
+<img width="300" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/9d7d4e6d-2397-481c-9888-fbe41581252b">
+
+#### [SQL]
+```
+SELECT Student.NAME,StudentCourse.COURSE_ID 
+FROM Student 
+LEFT JOIN StudentCourse 
+ON StudentCourse.ROLL_NO = Student.ROLL_NO;
+```
+#### [OUTPUT]
+<img width="300" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/844783c6-8e80-4ba6-b5b4-ba07d41ff9d8">
+
+- LEFT (OUTER) JOIN
+- 왼쪽 테이블의 모든 행을 반환하고, 오른쪽에 있는 테이블의 행과 일치한다
+- 오른쪽 테이블과 일치하는 행이 없는 행은 null로 표기한다
+<br>
+
+### 3. RIGHT JOIN
+<img width="300" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/428e5577-4e23-433e-bed9-5027bba550e8">
+
+#### [SQL]
+```
+SELECT Student.NAME,StudentCourse.COURSE_ID 
+FROM Student
+RIGHT JOIN StudentCourse 
+ON StudentCourse.ROLL_NO = Student.ROLL_NO;
+```
+#### [OUTPUT]
+<img width="300" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/6d836603-68c6-4e91-8c9d-da8e1a66c7e0">
+
+- RIGHT (OUTER) JOIN
+- 오른쪽에 있는 테이블의 모든 행을 반환하고, 왼쪽에 있는 테이블의 행과 일치한다
+- 왼쪽 테이블과 일치하는 행이 없는 행은 null로 표기한다
+<br>
+
+### 4. FULL JOIN
+<img width="300" src="https://github.com/EN-CS-STUDY/CS_STUDY/assets/100523178/e105bb4a-1339-499a-bfe0-dd7ea35385c7">
+
+#### [SQL]
+```
+SELECT Student.NAME,StudentCourse.COURSE_ID 
+FROM Student
+FULL JOIN StudentCourse 
+ON StudentCourse.ROLL_NO = Student.ROLL_NO;
+```
+
+#### [OUTPUT]
+|NAME|COURSE_ID|
+|----|---------|
+|HARSH|1|
+|PRATIK|2|
+|RIYANKA|2|
+|DEEP|3|
+|SAPTARHI|1|
+|DHANRAJ|NULL|
+|ROHIT|NULL|
+|NIRAJ|NULL|
+|NULL|4|
+|NULL|5|
+|NULL|4|
 
 ### Q. NoSQL에서의 JOIN
 - NoSQL에서는 Reference 방식을 통해 데이터간의 관계를 나타낸다
