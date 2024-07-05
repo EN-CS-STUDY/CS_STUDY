@@ -1,3 +1,4 @@
+## 작성자 : 홍영환
 # Array vs ArrayList vs LinkedList
 
 ---
