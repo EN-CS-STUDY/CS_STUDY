@@ -95,6 +95,9 @@ Array와 ArrayList는 모든 것이 비슷하다.
 - Array는 **고정 길이**이다.
 - ArrayLisy는 **가변 길이**이다.
 
+Array는 초기화 시 메모리에 할당되어 ArrayList보다 속도가 빠르고,
+ArrayList는 데이터 추가 및 삭제 시 메모리를 재할당하기 때문에 속도가 Array보다 느리다.
+
 ### 📌 ArrayList의 원리
 
 ---
@@ -166,3 +169,12 @@ ArrayList는 index가 있고, LinkedList는 각 원소마다 앞, 뒤 원소의 
 삽입 삭제 : LinkedList가 더 뛰어난 성능을 보여준다.
 
 조회 : ArrayList가 더 뛰어난 성능을 보여준다.
+
+
+## 📚 참고자료
+
+
+https://dev-coco.tistory.com/159
+
+https://dev-coco.tistory.com/19
+
