@@ -1,3 +1,4 @@
+## 작성자 : 홍영환
 # Array vs ArrayList vs LinkedList
 
 ---
@@ -169,10 +170,11 @@ ArrayList는 index가 있고, LinkedList는 각 원소마다 앞, 뒤 원소의 
 
 조회 : ArrayList가 더 뛰어난 성능을 보여준다.
 
+
 ## 📚 참고자료
 
----
 
 https://dev-coco.tistory.com/159
 
 https://dev-coco.tistory.com/19
+
