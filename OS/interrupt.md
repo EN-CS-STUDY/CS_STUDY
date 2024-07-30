@@ -57,7 +57,7 @@ CPU한테 각 프로세스를 수행할 수 있는 제한된 시간이 주어져
 
 - 그리고 OS내부에 있는 Mouse Interrupt Service Routine으로 점프한다.
 
-- Mouse Interrupt Service Routine은 커서를 이동시킨 좌표를 모니터상에 표현해주는 역할을 한다**.**
+- Mouse Interrupt Service Routine은 커서를 이동시킨 좌표를 모니터상에 표현해주는 역할을 한다.
 
 **✅ 전원 이상 인터럽트**
 
